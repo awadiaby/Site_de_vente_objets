@@ -41,6 +41,14 @@ app.use('/api/stuff', (req, res, next) => {
         price: 3200,
         userId: 'qsomihvqios',
       },
+      {
+        _id: 'oeihfzeomoihi',
+        title: 'Une histoire de Brillance ',
+        description: 'Les infos de mon troisième objet',
+        imageUrl: 'https://leandalivia.com/wp-content/uploads/2019/11/849bf18c89b5caa82af7a700b1048872-930x620.jpg',
+        price: 3200,
+        userId: 'qsomihvqios',
+      },
     ];
     res.status(200).json(stuff);
   });

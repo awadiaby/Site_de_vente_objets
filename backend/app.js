@@ -1,6 +1,17 @@
 // importer express
 const express = require('express');
 
+const bodyParser = require('body-parser');
+
+const mongoose = require('mongoose');
+
+// connection a la bases de données 
+mongoose.connect('mongodb+srv://awafullstack:adjalove@cluster0.hbumk.mongodb.net/?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
+  
 // const app pour nos code express
 
 const app = express();
@@ -13,6 +24,20 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); // envoyer des réquêtes avec les différents méthode
     next(); // pour passer l'exécution au middleware d'aaprès
   });
+
+
+// un nouveau middleware qui traite les données POST
+
+app.use(bodyParser.json());
+
+ // Traiter les rêquetes post 
+ app.post('/api/stuff', (req, res, next) => {
+     console.log(req.body);
+     res.status(201).json({
+         message: 'Objet créer !'
+     });
+
+ });
 
 app.use('/api/stuff', (req, res, next) => {
     //une table stuff
@@ -36,6 +61,7 @@ app.use('/api/stuff', (req, res, next) => {
       {
         _id: 'oeihfzeomoihi',
         title: 'Une histoire de Brillance ',
+        lieu: 'Rennes',
         description: 'Les infos de mon troisième objet',
         imageUrl: 'https://static.mmzstatic.com/wp-content/uploads/2012/09/anna-dello-russo-h-m.jpg',
         price: 3200,
